@@ -8,7 +8,6 @@ const lightboxOverlay = document.querySelector(".lightbox__overlay");
 const closeLightboxButton = document.querySelector(
   'button[data-action="close-lightbox"]'
 );
-// let currentImgIdx = 0;
 
 galleryMarkup.insertAdjacentHTML("beforeend", cardImage);
 galleryMarkup.addEventListener("click", onGalleryClick);
@@ -44,13 +43,19 @@ function onGalleryClick(event) {
   }
   const largeImageUrl = event.target.dataset.source;
   lightboxImage.src = largeImageUrl;
-  //   currentImgIdx = Number(event.target.dataset.index);
+
   lightbox.classList.add("is-open");
   addKeydownListener();
 }
 
 function addKeydownListener() {
   window.addEventListener("keydown", onPressEscape);
+}
+
+function onPressEscape(event) {
+  if (event.code === "Escape") {
+    closeLightboxHandler();
+  }
 }
 
 function closeLightboxHandler() {
@@ -63,11 +68,6 @@ function removeKeydownListener() {
 }
 function onClickOverlay(event) {
   if (event.target === event.currentTarget) {
-    closeLightboxHandler();
-  }
-}
-function onPressEscape(event) {
-  if (event.code === "Escape") {
     closeLightboxHandler();
   }
 }
