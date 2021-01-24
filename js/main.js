@@ -1,7 +1,7 @@
-import initialArr from "../js/gallery-items.js";
+import imagesArr from "../js/gallery-items.js";
 
 const galleryMarkup = document.querySelector(".js-gallery");
-const cardImage = createImageMarkup(initialArr);
+const cardImage = createImageMarkup(imagesArr);
 const lightboxImage = document.querySelector(".lightbox__image");
 const lightbox = document.querySelector(".js-lightbox");
 const lightboxOverlay = document.querySelector(".lightbox__overlay");
@@ -12,7 +12,7 @@ const closeLightboxButton = document.querySelector(
 galleryMarkup.insertAdjacentHTML("beforeend", cardImage);
 galleryMarkup.addEventListener("click", onGalleryClick);
 closeLightboxButton.addEventListener("click", closeLightboxHandler);
-lightboxOverlay.addEventListener("click", onClickOverlay);
+lightboxOverlay.addEventListener("click", onOverlayClick);
 
 function createImageMarkup(images) {
   return images
@@ -45,10 +45,10 @@ function onGalleryClick(event) {
   lightboxImage.src = largeImageUrl;
 
   lightbox.classList.add("is-open");
-  addKeydownListener();
+  addOnEscModalClose();
 }
 
-function addKeydownListener() {
+function addOnEscModalClose() {
   window.addEventListener("keydown", onPressEscape);
 }
 
@@ -59,14 +59,14 @@ function onPressEscape(event) {
 }
 
 function closeLightboxHandler() {
-  removeKeydownListener();
+  removeOnEscModalClose();
   lightbox.classList.remove("is-open");
   lightboxImage.src = "";
 }
-function removeKeydownListener() {
+function removeOnEscModalClose() {
   window.removeEventListener("keydown", onPressEscape);
 }
-function onClickOverlay(event) {
+function onOverlayClick(event) {
   if (event.target === event.currentTarget) {
     closeLightboxHandler();
   }
